@@ -1,0 +1,52 @@
+﻿@model ClientWCF.Models.ListaDipendenti
+
+@{
+    ViewBag.Title = "Utenti";
+}
+
+<h2>Utenti</h2>
+
+<table width="100%">
+    <tr>
+        <th style="text-align:center">ID</th>
+        <th style="text-align:center">Nome</th>
+        <th style="text-align:center">Cognome</th>
+        <th style="text-align:center">Telefono</th>
+        <th style="text-align:center">Password</th>
+        <th style="text-align:center">Amministratore</th>
+        <th style="text-align:center">Modifica</th>       
+        <th style="text-align:center">Elimina</th>
+    </tr>
+    @{foreach (var i in Model.listaDipend)
+        {
+<tr style="text-align:center">
+    <td>
+        @i.id
+    </td>
+    <td>
+        @i.nome
+    </td>
+    <td>
+        @i.cognome
+    </td>
+    <td>
+        @i.telefono
+    </td>
+    <td>
+        @i.password
+    </td>
+    <td>
+        @i.amministratore
+    </td>
+
+<td>
+    @Html.ActionLink("Modifica", "ModificaUtente", new { id = i.id })
+</td> 
+
+<td>
+    @Html.ActionLink("Elimina", "ModificaUtente", new { id = i.id })
+</td>
+</tr> 
+            }
+        }
+</table>

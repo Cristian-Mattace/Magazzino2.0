@@ -1,0 +1,61 @@
+﻿@model ClientWCF.Models.Dipendente
+
+@{
+    ViewBag.Title = "Utente";
+}
+
+<h2>Menu Dipendente</h2>
+
+<div>
+    @if ((int)Session["CEO"] == 1)
+    {
+        <h4>CEO</h4>
+    }
+    else
+    { 
+        <h4>Dipendente</h4>
+    }
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cognome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cognome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amministratore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amministratore)
+        </dd>
+
+    </dl>
+</div>

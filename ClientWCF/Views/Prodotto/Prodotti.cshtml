@@ -1,0 +1,69 @@
+﻿@model ClientWCF.Models.ListaProdotti
+@{
+    ViewBag.Title = "Prodotti";
+}
+
+<h2>Prodotti</h2>
+
+<table width="100%">
+    <tr>
+        <th style="text-align:center">ID</th>
+        <th style="text-align:center">Nome</th>
+        <th style="text-align:center">Prezzo</th>
+        <th style="text-align:center">Produttore</th>
+        <th style="text-align:center">Categoria</th>
+        <th style="text-align:center">Quantità</th>
+        <th style="text-align:center">Posizione</th>
+        <th style="text-align:center">Modifica</th>
+        @if ((int)Session["CEO"] == 1)
+        {
+            <th style="text-align:center">Elimina</th>
+        }
+    </tr>
+    @{foreach (var i in Model.listaProducts)
+        {
+        <tr style="text-align:center">
+            <td>
+                @i.id
+            </td>
+            <td>
+                @i.nome
+            </td>
+            <td>
+                €@i.prezzo
+            </td>
+            <td>
+                @ViewBag.produttori[i.produttore - 1]
+            </td>
+            <td>
+                @ViewBag.categorie[i.categoria - 1]
+            </td>
+            <td>
+                @i.quantità
+            </td>
+            <td>
+                @i.posizione
+            </td>
+            @if ((int)Session["CEO"] == 1)
+            {
+                <td>
+                    @Html.ActionLink("Modifica", "ModificaProdotto", new { id = i.id })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Modifica", "AzioniProdotto", new { id = i.id })
+                </td>
+            }
+            
+            @if ((int)Session["CEO"] == 1)
+            {
+                <td>
+                    @Html.ActionLink("Elimina", "EliminaProdotto", new { id = i.id })
+                </td>
+            }
+        </tr>
+        }
+      }
+</table>
