@@ -300,7 +300,7 @@ namespace WCF_Server
             }
         }
 
-        public bool ProductUpdate(MySqlConnection x, int id, int quant, string pos, int idDip, string desc, string date)
+        public bool ProductUpdate(MySqlConnection x,ProdottoServer p, int idDip, string desc, string date)
         {
             //dichiariamo la transazione e la facciamo partire
             MySqlTransaction transaction;
@@ -320,23 +320,23 @@ namespace WCF_Server
                     command1.CommandText = "UPDATE posizione SET Disponibile=1 " +
                               "WHERE posizione.IDPosizione = (SELECT posizione.IDPosizione " +
                               "FROM posizione, prodotto " +
-                              "WHERE posizione.IDPosizione = prodotto.IDPosizione AND prodotto.IDProdotto =" + id + ");";
+                              "WHERE posizione.IDPosizione = prodotto.IDPosizione AND prodotto.IDProdotto =" + p.id + ");";
                     command1.ExecuteNonQuery();
 
                     //aggiorniamo la posizione e la quantità
                     command1.CommandText = "UPDATE prodotto SET Quantita=@Quantita,IDPosizione=@Posizione WHERE IDProdotto=@IDProdotto;";
-                    command1.Parameters.AddWithValue("@Quantita", quant);
-                    command1.Parameters.AddWithValue("@Posizione", pos);
-                    command1.Parameters.AddWithValue("@IDProdotto", id);
+                    command1.Parameters.AddWithValue("@Quantita", p.quantita);
+                    command1.Parameters.AddWithValue("@Posizione", p.posizione);
+                    command1.Parameters.AddWithValue("@IDProdotto", p.id);
                     command1.ExecuteNonQuery();
 
                     //mettiamo la nuova posizione del prodotto non disponibile
                     command1.CommandText = "UPDATE posizione SET Disponibile=0 " +
                        "WHERE posizione.IDPosizione = (SELECT posizione.IDPosizione " +
                                                         "FROM posizione, prodotto " +
-                                                        "WHERE posizione.IDPosizione = prodotto.IDPosizione AND prodotto.IDProdotto =" + id + ");";
+                                                        "WHERE posizione.IDPosizione = prodotto.IDPosizione AND prodotto.IDProdotto =" + p.id + ");";
                     command1.ExecuteNonQuery();
-                    command1.CommandText = "INSERT INTO operazione(IDOperazione, IDDipendente, Data, Descrizione, IDProdotto)VALUES(null," + idDip + ", '" + date + "', '" + desc + "'," + id + ");";
+                    command1.CommandText = "INSERT INTO operazione(IDOperazione, IDDipendente, Data, Descrizione, IDProdotto)VALUES(null," + idDip + ", '" + date + "', '" + desc + "'," + p.id + ");";
                     command1.ExecuteNonQuery();
 
                     transaction.Commit();

@@ -1,4 +1,5 @@
 ﻿using ClientWCF.Models;
+using ClientWCF.ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,8 +78,12 @@ namespace ClientWCF.Controllers
                     string cambiamenti = "";
                     if (p.quantità != p1.quantità) cambiamenti = "Quantità = " + p1.quantità + " ";
                     if (p.posizione != p1.posizione) cambiamenti = cambiamenti + "Posizione = " + p1.posizione;
-                    //controllo che ritorni un prodotto
-                    if (wcf.updateProduct(p1.id, p1.quantità, p1.posizione, i, cambiamenti, date))
+
+                    //convertiamo il model in un oggetto per il server
+                    var ps = p1.convertiClientToServer();
+
+                    //controllo che ritorni true
+                    if (wcf.updateProduct(ps, i, cambiamenti, date))
                     {
                         //ritorno alla view prodotti tramite redirectToAction
                         return RedirectToAction("Prodotti");

@@ -434,10 +434,10 @@ namespace ClientWCF.ServiceReference1 {
         System.Threading.Tasks.Task<bool> EliminaProdottoAsync(ClientWCF.ServiceReference1.ProdottoServer ps);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/updateProduct", ReplyAction="http://tempuri.org/IService1/updateProductResponse")]
-        bool updateProduct(int id, int quant, string pos, int idDip, string desc, string date);
+        bool updateProduct(ClientWCF.ServiceReference1.ProdottoServer p, int idDip, string desc, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/updateProduct", ReplyAction="http://tempuri.org/IService1/updateProductResponse")]
-        System.Threading.Tasks.Task<bool> updateProductAsync(int id, int quant, string pos, int idDip, string desc, string date);
+        System.Threading.Tasks.Task<bool> updateProductAsync(ClientWCF.ServiceReference1.ProdottoServer p, int idDip, string desc, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreaUtente", ReplyAction="http://tempuri.org/IService1/CreaUtenteResponse")]
         bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo);
@@ -583,12 +583,12 @@ namespace ClientWCF.ServiceReference1 {
             return base.Channel.EliminaProdottoAsync(ps);
         }
         
-        public bool updateProduct(int id, int quant, string pos, int idDip, string desc, string date) {
-            return base.Channel.updateProduct(id, quant, pos, idDip, desc, date);
+        public bool updateProduct(ClientWCF.ServiceReference1.ProdottoServer p, int idDip, string desc, string date) {
+            return base.Channel.updateProduct(p, idDip, desc, date);
         }
         
-        public System.Threading.Tasks.Task<bool> updateProductAsync(int id, int quant, string pos, int idDip, string desc, string date) {
-            return base.Channel.updateProductAsync(id, quant, pos, idDip, desc, date);
+        public System.Threading.Tasks.Task<bool> updateProductAsync(ClientWCF.ServiceReference1.ProdottoServer p, int idDip, string desc, string date) {
+            return base.Channel.updateProductAsync(p, idDip, desc, date);
         }
         
         public bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo) {
