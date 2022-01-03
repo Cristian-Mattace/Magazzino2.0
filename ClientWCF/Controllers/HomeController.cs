@@ -24,7 +24,7 @@ namespace ClientWCF.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "PROVA PROVA PROVA";
 
             return View();
         }
