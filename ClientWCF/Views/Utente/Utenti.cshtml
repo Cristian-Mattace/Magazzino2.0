@@ -43,10 +43,13 @@
         <td>
             @Html.ActionLink("Modifica", "ModificaUtente", new { id = i.id })
         </td> 
-
+        @if (i.amministratore == false)
+        {
         <td>
             @Html.ActionLink("Elimina", "EliminaUtente", new { id = i.id })
         </td>
+         }
+
         </tr> 
                 }
             }
