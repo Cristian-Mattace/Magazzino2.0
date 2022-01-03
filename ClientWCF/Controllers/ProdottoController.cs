@@ -69,7 +69,7 @@ namespace ClientWCF.Controllers
                 try
                 {
                     var wcf = new ServiceReference1.Service1Client();
-                    int i = (int)Session["ID"];
+                    int idDip = (int)Session["ID"];
                     string date = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
                     //controllo cosa è stato cambiato per metterlo nella descrizione
@@ -83,7 +83,7 @@ namespace ClientWCF.Controllers
                     var ps = p1.convertiClientToServer();
 
                     //controllo che ritorni true
-                    if (wcf.updateProduct(ps, i, cambiamenti, date))
+                    if (wcf.updateProduct(ps, idDip, cambiamenti, date))
                     {
                         //ritorno alla view prodotti tramite redirectToAction
                         return RedirectToAction("Prodotti");

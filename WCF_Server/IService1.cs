@@ -60,5 +60,8 @@ namespace WCF_Server
         [OperationContract]
         DipendenteServer getUtenteById(int n);
 
+        [OperationContract]
+        List<string> getProductInExhaustion();
+
     }
 }

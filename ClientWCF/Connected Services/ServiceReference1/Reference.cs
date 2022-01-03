@@ -379,12 +379,6 @@ namespace ClientWCF.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DoWork", ReplyAction="http://tempuri.org/IService1/DoWorkResponse")]
         System.Threading.Tasks.Task DoWorkAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DoWork2", ReplyAction="http://tempuri.org/IService1/DoWork2Response")]
-        void DoWork2();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DoWork2", ReplyAction="http://tempuri.org/IService1/DoWork2Response")]
-        System.Threading.Tasks.Task DoWork2Async();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Login", ReplyAction="http://tempuri.org/IService1/LoginResponse")]
         ClientWCF.ServiceReference1.DipendenteServer Login(int id, string pswd);
         
@@ -474,6 +468,12 @@ namespace ClientWCF.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getUtenteById", ReplyAction="http://tempuri.org/IService1/getUtenteByIdResponse")]
         System.Threading.Tasks.Task<ClientWCF.ServiceReference1.DipendenteServer> getUtenteByIdAsync(int n);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getProductInExhaustion", ReplyAction="http://tempuri.org/IService1/getProductInExhaustionResponse")]
+        string[] getProductInExhaustion();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getProductInExhaustion", ReplyAction="http://tempuri.org/IService1/getProductInExhaustionResponse")]
+        System.Threading.Tasks.Task<string[]> getProductInExhaustionAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -509,14 +509,6 @@ namespace ClientWCF.ServiceReference1 {
         
         public System.Threading.Tasks.Task DoWorkAsync() {
             return base.Channel.DoWorkAsync();
-        }
-        
-        public void DoWork2() {
-            base.Channel.DoWork2();
-        }
-        
-        public System.Threading.Tasks.Task DoWork2Async() {
-            return base.Channel.DoWork2Async();
         }
         
         public ClientWCF.ServiceReference1.DipendenteServer Login(int id, string pswd) {
@@ -637,6 +629,14 @@ namespace ClientWCF.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ClientWCF.ServiceReference1.DipendenteServer> getUtenteByIdAsync(int n) {
             return base.Channel.getUtenteByIdAsync(n);
+        }
+        
+        public string[] getProductInExhaustion() {
+            return base.Channel.getProductInExhaustion();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> getProductInExhaustionAsync() {
+            return base.Channel.getProductInExhaustionAsync();
         }
     }
 }

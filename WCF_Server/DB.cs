@@ -779,5 +779,44 @@ namespace WCF_Server
 
             }
         }
+
+
+
+        //ritorno il nome dei prodotti in esaurimento
+        public List<string> getProductInExhaustion(MySqlConnection x)
+        {
+            try
+            {
+                List<string> prodotti = new List<string>();
+                x.Open();
+                using (MySqlCommand command1 = x.CreateCommand())
+                {
+                    //ritorno tutti i nomi dei prodotti con quantità <=3
+                    command1.CommandText = "SELECT PRODOTTO.NOME " +
+                    "FROM PRODOTTO " +
+                    "WHERE PRODOTTO.QUANTITA<=3;";
+
+                    using (MySqlDataReader reader = command1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //legge i risultati ottenuti dalla query, in questo caso ritorna i nomi dei prodotti
+                            var nome = reader.GetString(0);
+
+                            prodotti.Add(nome);
+                        }
+                        x.Close();
+                        return prodotti;
+                    }
+                    x.Close();
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRORE: " + e.ToString());
+                return null;
+            }
+        }
     }
 }

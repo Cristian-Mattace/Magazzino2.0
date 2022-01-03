@@ -12,16 +12,6 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="DoWork2">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DoWork2Response">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="Login">
     <xs:complexType>
       <xs:sequence>
@@ -226,6 +216,18 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getUtenteByIdResult" nillable="true" type="q15:DipendenteServer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getProductInExhaustion">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getProductInExhaustionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="getProductInExhaustionResult" nillable="true" type="q16:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

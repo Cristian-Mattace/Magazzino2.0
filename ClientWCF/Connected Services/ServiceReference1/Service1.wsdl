@@ -14,12 +14,6 @@
   <wsdl:message name="IService1_DoWork_OutputMessage">
     <wsdl:part name="parameters" element="tns:DoWorkResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_DoWork2_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork2" />
-  </wsdl:message>
-  <wsdl:message name="IService1_DoWork2_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork2Response" />
-  </wsdl:message>
   <wsdl:message name="IService1_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -110,14 +104,16 @@
   <wsdl:message name="IService1_getUtenteById_OutputMessage">
     <wsdl:part name="parameters" element="tns:getUtenteByIdResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_getProductInExhaustion_InputMessage">
+    <wsdl:part name="parameters" element="tns:getProductInExhaustion" />
+  </wsdl:message>
+  <wsdl:message name="IService1_getProductInExhaustion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getProductInExhaustionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork" message="tns:IService1_DoWork_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/DoWorkResponse" message="tns:IService1_DoWork_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DoWork2">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork2" message="tns:IService1_DoWork2_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DoWork2Response" message="tns:IService1_DoWork2_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/Login" message="tns:IService1_Login_InputMessage" />
@@ -179,20 +175,15 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/getUtenteById" message="tns:IService1_getUtenteById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/getUtenteByIdResponse" message="tns:IService1_getUtenteById_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="getProductInExhaustion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/getProductInExhaustion" message="tns:IService1_getProductInExhaustion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/getProductInExhaustionResponse" message="tns:IService1_getProductInExhaustion_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DoWork">
       <soap:operation soapAction="http://tempuri.org/IService1/DoWork" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DoWork2">
-      <soap:operation soapAction="http://tempuri.org/IService1/DoWork2" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -328,6 +319,15 @@
     </wsdl:operation>
     <wsdl:operation name="getUtenteById">
       <soap:operation soapAction="http://tempuri.org/IService1/getUtenteById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProductInExhaustion">
+      <soap:operation soapAction="http://tempuri.org/IService1/getProductInExhaustion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

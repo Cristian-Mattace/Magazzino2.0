@@ -52,6 +52,15 @@ namespace ClientWCF.Controllers
                         {
                             Session["CEO"] = 0;
                         }
+
+                        //creo una viewBag coon i prodotti in esaurimento
+                        string prodotti = "";
+                        foreach (var x in wcf.getProductInExhaustion())
+                        {
+                            prodotti = prodotti + x + " - ";
+                        }
+                        prodotti = prodotti.Remove(prodotti.Length - 3);
+                        ViewBag.prodottiInEsaurimento = prodotti;
                         return View("MenuUtente", ut);
                     }
 

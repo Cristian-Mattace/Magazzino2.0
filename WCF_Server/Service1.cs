@@ -329,6 +329,23 @@ namespace WCF_Server
                 return false;
             }
         }
+
+        public List<string> getProductInExhaustion()
+        {
+            try
+            {
+                //ci connettiamo al DB
+                var x = databse1.getsqlconnect(databse1.connectstring());
+
+                //ritorna true se le modifiche sono state eseguite correttamente
+                return databse1.getProductInExhaustion(x);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Errore: " + e.ToString());
+                return null;
+            }
+        }
     }
 }
         
