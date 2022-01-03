@@ -14,10 +14,6 @@ namespace WCF_Server
         public void DoWork()
         {
         }
-        public void DoWork2()
-        {
-            Console.WriteLine("Ciao, sono dowork2!");
-        }
 
         public DipendenteServer Login(int id, string pswd)
         {
