@@ -13,7 +13,6 @@ namespace ClientWCF.Models
         [Display(Name = "ID")]
         public int id { get; set; }
 
-
         [Display(Name = "Nome")]
         public string nome { get; set; }
 

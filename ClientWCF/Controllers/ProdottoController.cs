@@ -260,6 +260,7 @@ namespace ClientWCF.Controllers
                         ViewBag.nomiProd = nomiProd;
 
                         List<String> posti = new List<string>();
+                        posti.Add(p.posizione);
                         foreach (var x in wcf.getFreePos())
                         {
                             posti.Add(x);
