@@ -367,7 +367,7 @@ namespace WCF_Server
             }
         }
 
-        public bool CreaUtente(MySqlConnection x, string nome, string cognome, string telefono, string pass, int ceo)
+        public bool CreaUtente(MySqlConnection x, DipendenteServer ds)
         {
             //dichiariamo la transazione e la facciamo partire
             x.Open();
@@ -377,11 +377,15 @@ namespace WCF_Server
             {
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
+                    var ceo = 0;
+                    if (ds.amministratore == true)
+                        ceo = 1;
+
                     // Must assign both transaction object and connection
                     // to Command object for a pending local transaction
                     command1.Connection = x;
                     command1.Transaction = transaction;
-                    command1.CommandText = "INSERT INTO Dipendente(IDDipendente, Nome, Cognome, Telefono, Password, Amministratore)VALUES(null,'" + nome + "', '" + cognome + "', '" + telefono + "','" + pass + "'," + ceo + ");";
+                    command1.CommandText = "INSERT INTO Dipendente(IDDipendente, Nome, Cognome, Telefono, Password, Amministratore)VALUES(null,'" + ds.nome + "', '" + ds.cognome + "', '" + ds.telefono + "','" + ds.password + "'," + ceo + ");";
                     command1.ExecuteNonQuery();
                     transaction.Commit();
 

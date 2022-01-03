@@ -440,10 +440,10 @@ namespace ClientWCF.ServiceReference1 {
         System.Threading.Tasks.Task<bool> updateProductAsync(ClientWCF.ServiceReference1.ProdottoServer p, int idDip, string desc, string date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreaUtente", ReplyAction="http://tempuri.org/IService1/CreaUtenteResponse")]
-        bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo);
+        bool CreaUtente(ClientWCF.ServiceReference1.DipendenteServer ds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreaUtente", ReplyAction="http://tempuri.org/IService1/CreaUtenteResponse")]
-        System.Threading.Tasks.Task<bool> CreaUtenteAsync(string nome, string cognome, string telefono, string pass, int ceo);
+        System.Threading.Tasks.Task<bool> CreaUtenteAsync(ClientWCF.ServiceReference1.DipendenteServer ds);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaDipendente", ReplyAction="http://tempuri.org/IService1/EliminaDipendenteResponse")]
         bool EliminaDipendente(ClientWCF.ServiceReference1.DipendenteServer ds);
@@ -591,12 +591,12 @@ namespace ClientWCF.ServiceReference1 {
             return base.Channel.updateProductAsync(p, idDip, desc, date);
         }
         
-        public bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo) {
-            return base.Channel.CreaUtente(nome, cognome, telefono, pass, ceo);
+        public bool CreaUtente(ClientWCF.ServiceReference1.DipendenteServer ds) {
+            return base.Channel.CreaUtente(ds);
         }
         
-        public System.Threading.Tasks.Task<bool> CreaUtenteAsync(string nome, string cognome, string telefono, string pass, int ceo) {
-            return base.Channel.CreaUtenteAsync(nome, cognome, telefono, pass, ceo);
+        public System.Threading.Tasks.Task<bool> CreaUtenteAsync(ClientWCF.ServiceReference1.DipendenteServer ds) {
+            return base.Channel.CreaUtenteAsync(ds);
         }
         
         public bool EliminaDipendente(ClientWCF.ServiceReference1.DipendenteServer ds) {

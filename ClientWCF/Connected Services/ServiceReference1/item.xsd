@@ -147,11 +147,7 @@
   <xs:element name="CreaUtente">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="cognome" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="telefono" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="pass" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="ceo" type="xs:int" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="ds" nillable="true" type="q10:DipendenteServer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -165,7 +161,7 @@
   <xs:element name="EliminaDipendente">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="ds" nillable="true" type="q10:DipendenteServer" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="ds" nillable="true" type="q11:DipendenteServer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -179,7 +175,7 @@
   <xs:element name="ProductUpdateCeo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="p1" nillable="true" type="q11:ProdottoServer" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="p1" nillable="true" type="q12:ProdottoServer" />
         <xs:element minOccurs="0" name="idUser" type="xs:int" />
         <xs:element minOccurs="0" name="date" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="desc" nillable="true" type="xs:string" />
@@ -201,14 +197,14 @@
   <xs:element name="getListaDipendentiResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getListaDipendentiResult" nillable="true" type="q12:ListaDipendentiServer" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getListaDipendentiResult" nillable="true" type="q13:ListaDipendentiServer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UserUpdateCeo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="d1" nillable="true" type="q13:DipendenteServer" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="d1" nillable="true" type="q14:DipendenteServer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -229,7 +225,7 @@
   <xs:element name="getUtenteByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getUtenteByIdResult" nillable="true" type="q14:DipendenteServer" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getUtenteByIdResult" nillable="true" type="q15:DipendenteServer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

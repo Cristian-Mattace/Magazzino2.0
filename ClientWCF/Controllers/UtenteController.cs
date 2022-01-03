@@ -84,16 +84,10 @@ namespace ClientWCF.Controllers
                 //connessione col service
                 try
                 {
-                    int ceo = 0;
                     var wcf = new ServiceReference1.Service1Client();
-                    if (dp.amministratore == true)
-                    {
-                        ceo = 1;
-                    }
-                    else
-                        ceo = 0;
 
-                    if (wcf.CreaUtente(dp.nome, dp.cognome, dp.telefono, dp.password, ceo))
+                    //verifico che la creazione dell utente ritorni un bool a true
+                    if (wcf.CreaUtente(dp.convertiClientToServer()))
                     {
                         return RedirectToAction("Index", "Home");
                     }

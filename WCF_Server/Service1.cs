@@ -140,7 +140,7 @@ namespace WCF_Server
             }
         }
 
-        public bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo)
+        public bool CreaUtente(DipendenteServer ds)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace WCF_Server
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
                 //ritorna la lista di prodotti
-                if (databse1.CreaUtente(x, nome, cognome, telefono, pass, ceo))
+                if (databse1.CreaUtente(x,ds))
                 {
                     return true;
                 }
