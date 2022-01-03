@@ -63,5 +63,8 @@ namespace WCF_Server
         [OperationContract]
         List<string> getProductInExhaustion();
 
+        [OperationContract]
+        ListaOperazioniServer getOperazioni();
+
     }
 }

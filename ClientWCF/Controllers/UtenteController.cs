@@ -150,7 +150,6 @@ namespace ClientWCF.Controllers
                     }
                     else
                     {
-
                         LP.convertiListaDipendentiServer(listaDip);
                         return View(LP);
                     }

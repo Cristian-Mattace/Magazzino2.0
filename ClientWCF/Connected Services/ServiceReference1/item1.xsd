@@ -47,4 +47,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfDipendenteServer" nillable="true" type="tns:ArrayOfDipendenteServer" />
+  <xs:complexType name="ListaOperazioniServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listaOpe" nillable="true" type="tns:ArrayOfOperazioneServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListaOperazioniServer" nillable="true" type="tns:ListaOperazioniServer" />
+  <xs:complexType name="ArrayOfOperazioneServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperazioneServer" nillable="true" type="tns:OperazioneServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperazioneServer" nillable="true" type="tns:ArrayOfOperazioneServer" />
+  <xs:complexType name="OperazioneServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="descrizione" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idDipendente" type="xs:int" />
+      <xs:element minOccurs="0" name="idOperazione" type="xs:int" />
+      <xs:element minOccurs="0" name="idProdotto" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperazioneServer" nillable="true" type="tns:OperazioneServer" />
 </xs:schema>

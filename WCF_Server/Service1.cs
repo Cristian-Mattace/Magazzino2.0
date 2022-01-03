@@ -346,6 +346,27 @@ namespace WCF_Server
                 return null;
             }
         }
+
+
+        public ListaOperazioniServer getOperazioni()
+        {
+            ListaOperazioniServer los = new ListaOperazioniServer();
+
+            try
+            {
+                //ci connettiamo al DB
+                var x = databse1.getsqlconnect(databse1.connectstring());
+
+                //ritorna la lista delle operazioni
+                los = databse1.getOperazioni(x);
+                return los;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Errore: " + e.ToString());
+                return null;
+            }
+        }
     }
 }
         

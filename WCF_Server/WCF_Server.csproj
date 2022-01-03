@@ -102,7 +102,9 @@
     <Compile Include="DipendenteServer.cs" />
     <Compile Include="IService1.cs" />
     <Compile Include="ListaDipendentiServer.cs" />
+    <Compile Include="ListaOperazioniServer.cs" />
     <Compile Include="ListaProdottiServer.cs" />
+    <Compile Include="OperazioneServer.cs" />
     <Compile Include="ProdottoServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

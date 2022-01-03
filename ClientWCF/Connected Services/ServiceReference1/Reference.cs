@@ -369,6 +369,160 @@ namespace ClientWCF.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListaOperazioniServer", Namespace="http://schemas.datacontract.org/2004/07/WCF_Server")]
+    [System.SerializableAttribute()]
+    public partial class ListaOperazioniServer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ClientWCF.ServiceReference1.OperazioneServer[] listaOpeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ClientWCF.ServiceReference1.OperazioneServer[] listaOpe {
+            get {
+                return this.listaOpeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.listaOpeField, value) != true)) {
+                    this.listaOpeField = value;
+                    this.RaisePropertyChanged("listaOpe");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OperazioneServer", Namespace="http://schemas.datacontract.org/2004/07/WCF_Server")]
+    [System.SerializableAttribute()]
+    public partial class OperazioneServer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descrizioneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idDipendenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idOperazioneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idProdottoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime data {
+            get {
+                return this.dataField;
+            }
+            set {
+                if ((this.dataField.Equals(value) != true)) {
+                    this.dataField = value;
+                    this.RaisePropertyChanged("data");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string descrizione {
+            get {
+                return this.descrizioneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descrizioneField, value) != true)) {
+                    this.descrizioneField = value;
+                    this.RaisePropertyChanged("descrizione");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idDipendente {
+            get {
+                return this.idDipendenteField;
+            }
+            set {
+                if ((this.idDipendenteField.Equals(value) != true)) {
+                    this.idDipendenteField = value;
+                    this.RaisePropertyChanged("idDipendente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idOperazione {
+            get {
+                return this.idOperazioneField;
+            }
+            set {
+                if ((this.idOperazioneField.Equals(value) != true)) {
+                    this.idOperazioneField = value;
+                    this.RaisePropertyChanged("idOperazione");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idProdotto {
+            get {
+                return this.idProdottoField;
+            }
+            set {
+                if ((this.idProdottoField.Equals(value) != true)) {
+                    this.idProdottoField = value;
+                    this.RaisePropertyChanged("idProdotto");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
@@ -474,6 +628,12 @@ namespace ClientWCF.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getProductInExhaustion", ReplyAction="http://tempuri.org/IService1/getProductInExhaustionResponse")]
         System.Threading.Tasks.Task<string[]> getProductInExhaustionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getOperazioni", ReplyAction="http://tempuri.org/IService1/getOperazioniResponse")]
+        ClientWCF.ServiceReference1.ListaOperazioniServer getOperazioni();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getOperazioni", ReplyAction="http://tempuri.org/IService1/getOperazioniResponse")]
+        System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaOperazioniServer> getOperazioniAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -637,6 +797,14 @@ namespace ClientWCF.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string[]> getProductInExhaustionAsync() {
             return base.Channel.getProductInExhaustionAsync();
+        }
+        
+        public ClientWCF.ServiceReference1.ListaOperazioniServer getOperazioni() {
+            return base.Channel.getOperazioni();
+        }
+        
+        public System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaOperazioniServer> getOperazioniAsync() {
+            return base.Channel.getOperazioniAsync();
         }
     }
 }

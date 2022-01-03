@@ -231,4 +231,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getOperazioni">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getOperazioniResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getOperazioniResult" nillable="true" type="q17:ListaOperazioniServer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

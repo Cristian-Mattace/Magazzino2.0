@@ -818,5 +818,46 @@ namespace WCF_Server
                 return null;
             }
         }
+
+        //ritorna tutte le operazioni del DB
+        public ListaOperazioniServer getOperazioni(MySqlConnection x)
+        {
+            try
+            {
+                ListaOperazioniServer operazioni = new ListaOperazioniServer();
+                x.Open();
+                using (MySqlCommand command1 = x.CreateCommand())
+                {
+                    //ritorno tutte le operazioni
+                    command1.CommandText = "SELECT * " +
+                    "FROM OPERAZIONI;";
+
+                    using (MySqlDataReader reader = command1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //legge i risultati ottenuti dalla query, in questo caso ritorna tutte le operazioni
+                            var idOpe = reader.GetInt32(0);
+                            var idDip = reader.GetInt32(1);
+                            var data = reader.GetDateTime(2);
+                            var descr = reader.GetString(3);
+                            var idProd = reader.GetInt32(4);
+
+                            OperazioneServer ops = new OperazioneServer(idOpe, idDip, data, descr, idProd);
+                            operazioni.listaOpe.Add(ops);
+                        }
+                        x.Close();
+                        return operazioni;
+                    }
+                    x.Close();
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRORE: " + e.ToString());
+                return null;
+            }
+        }
     }
 }
