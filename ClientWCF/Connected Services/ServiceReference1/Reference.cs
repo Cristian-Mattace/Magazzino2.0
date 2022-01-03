@@ -445,6 +445,12 @@ namespace ClientWCF.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreaUtente", ReplyAction="http://tempuri.org/IService1/CreaUtenteResponse")]
         System.Threading.Tasks.Task<bool> CreaUtenteAsync(string nome, string cognome, string telefono, string pass, int ceo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaDipendente", ReplyAction="http://tempuri.org/IService1/EliminaDipendenteResponse")]
+        bool EliminaDipendente(ClientWCF.ServiceReference1.DipendenteServer ds);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaDipendente", ReplyAction="http://tempuri.org/IService1/EliminaDipendenteResponse")]
+        System.Threading.Tasks.Task<bool> EliminaDipendenteAsync(ClientWCF.ServiceReference1.DipendenteServer ds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ProductUpdateCeo", ReplyAction="http://tempuri.org/IService1/ProductUpdateCeoResponse")]
         bool ProductUpdateCeo(ClientWCF.ServiceReference1.ProdottoServer p1, int idUser, string date, string desc);
         
@@ -591,6 +597,14 @@ namespace ClientWCF.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> CreaUtenteAsync(string nome, string cognome, string telefono, string pass, int ceo) {
             return base.Channel.CreaUtenteAsync(nome, cognome, telefono, pass, ceo);
+        }
+        
+        public bool EliminaDipendente(ClientWCF.ServiceReference1.DipendenteServer ds) {
+            return base.Channel.EliminaDipendente(ds);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaDipendenteAsync(ClientWCF.ServiceReference1.DipendenteServer ds) {
+            return base.Channel.EliminaDipendenteAsync(ds);
         }
         
         public bool ProductUpdateCeo(ClientWCF.ServiceReference1.ProdottoServer p1, int idUser, string date, string desc) {

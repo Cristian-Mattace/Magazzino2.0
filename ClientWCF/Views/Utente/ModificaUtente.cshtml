@@ -4,7 +4,7 @@
     ViewBag.Title = "ModificaUtente";
 }
 
-<h2>ModificaUtente</h2>
+<h2>Modifica Utente</h2>
 
 
 @using (Html.BeginForm())
@@ -52,10 +52,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.amministratore, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.amministratore)
-                    @Html.ValidationMessageFor(model => model.amministratore, "", new { @class = "text-danger" })
-                </div>
+                @if ((int)Session["CEO"] != 0)
+                {
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.amministratore)
+                        @Html.ValidationMessageFor(model => model.amministratore, "", new { @class = "text-danger" })
+                    </div>
+                }
+                else
+                {
+
+                    @Html.DisplayFor(model => model.amministratore)
+                }
             </div>
         </div>
 
@@ -67,9 +75,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -162,6 +162,29 @@ namespace WCF_Server
             }
         }
 
+        public bool EliminaDipendente(DipendenteServer ds)
+        {
+            try
+            {
+                //ci connettiamo al DB
+                var x = databse1.getsqlconnect(databse1.connectstring());
+
+                //eliminiamo il prodotto
+                if (databse1.EliminaDipendente(x, ds))
+                {
+                    return true;
+                }
+                else
+                    return false;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Errore: " + e.ToString());
+                return false;
+            }
+        }
+
         public List<String> getNomiCategorie()
         {
             List<String> nomi = new List<String>();

@@ -207,7 +207,30 @@ namespace ClientWCF.Controllers
                 try
                 {
                     var wcf = new ServiceReference1.Service1Client();
-                    //chiamo il metodo elimina prodotto, con parametro il prodotto con l'id passato
+                    Prodotto p = new Prodotto();
+                    //chiamo il metodo elimina utente, con parametro l'utente con l'id passato
+                    p.convertiServerToCLient(wcf.getProdById(id));
+                    return View(p);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERRORE: " + e.ToString());
+                    return View();
+                }
+            }
+            return View("CAZZO");
+        }
+
+        [HttpPost, ActionName("EliminaProdotto")]
+        public ActionResult EliminaProdottoConferma(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                //connessione col service
+                try
+                {
+                    var wcf = new ServiceReference1.Service1Client();
+                    //chiamo il metodo elimina utente, con parametro l'utente con l'id passato
                     if (wcf.EliminaProdotto(wcf.getProdById(id)))
                     {
                         return RedirectToAction("Prodotti");
@@ -223,6 +246,8 @@ namespace ClientWCF.Controllers
             }
             return View("CAZZO");
         }
+
+
 
         public ActionResult ModificaProdotto(int id)
         {

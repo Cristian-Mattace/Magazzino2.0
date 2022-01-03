@@ -48,6 +48,9 @@ namespace WCF_Server
         bool CreaUtente(string nome, string cognome, string telefono, string pass, int ceo);
 
         [OperationContract]
+        bool EliminaDipendente(DipendenteServer ds);
+
+        [OperationContract]
         bool ProductUpdateCeo(ProdottoServer p1, int idUser, string date, string desc);
 
         [OperationContract]

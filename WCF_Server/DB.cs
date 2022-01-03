@@ -411,6 +411,56 @@ namespace WCF_Server
         }
 
 
+        public bool EliminaDipendente(MySqlConnection x, DipendenteServer ds)
+        {
+            //dichiariamo la transazione e la facciamo partire
+            x.Open();
+            var transaction = x.BeginTransaction();
+
+            try
+            {
+                using (MySqlCommand command1 = x.CreateCommand())
+                {
+                    // Must assign both transaction object and connection
+                    // to Command object for a pending local transaction
+                    command1.Connection = x;
+                    command1.Transaction = transaction;
+
+                    //elimino le operazioni con quel dipendente
+                    command1.CommandText = "DELETE operazione FROM operazione WHERE operazione.IDDipendente = " + ds.id + ";";
+                    command1.ExecuteNonQuery();
+
+                    //elimino il prodotto tramite il suo id
+                    command1.CommandText = "DELETE dipendente FROM dipendente WHERE dipendente.IDDipendente = " + ds.id + ";";
+                    command1.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    x.Close();
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRORE: " + e.ToString());
+                // In caso di errore chiamiamo la Rollback
+                try
+                {
+                    //vengono annulate le modifiche in caso di errore e si ripristina il db a prima che si effettuasse la query
+                    transaction.Rollback();
+                    return false;
+                }
+                catch (Exception ex2)
+                {
+                    Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                    Console.WriteLine("  Message: {0}", ex2.Message);
+                    return false;
+                }
+            }
+        }
+
+
         public bool CreaProdotto(MySqlConnection x, ProdottoServer ps)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -470,7 +520,6 @@ namespace WCF_Server
         public bool EliminaProdotto(MySqlConnection x, ProdottoServer ps)
         {
             //dichiariamo la transazione e la facciamo partire
-
             x.Open();
             var transaction = x.BeginTransaction();
 
@@ -482,6 +531,10 @@ namespace WCF_Server
                     // to Command object for a pending local transaction
                     command1.Connection = x;
                     command1.Transaction = transaction;
+
+                    //elimino le operazioni con quel prodotto
+                    command1.CommandText = "DELETE operazione FROM operazione WHERE operazione.IDProdotto = " + ps.id + ";";
+                    command1.ExecuteNonQuery();
 
                     //elimino il prodotto tramite il suo id
                     command1.CommandText = "DELETE prodotto FROM prodotto WHERE prodotto.IDProdotto = " + ps.id + ";";

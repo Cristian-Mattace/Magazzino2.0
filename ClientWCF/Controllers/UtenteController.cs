@@ -225,5 +225,54 @@ namespace ClientWCF.Controllers
             return View();
         }
 
+
+        public ActionResult EliminaUtente(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                //connessione col service
+                try
+                {
+                    var wcf = new ServiceReference1.Service1Client();
+                    Dipendente d = new Dipendente();
+                    //chiamo il metodo elimina utente, con parametro l'utente con l'id passato
+                    d.convertiServerToCLient(wcf.getUtenteById(id));
+                    return View(d);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERRORE: " + e.ToString());
+                    return View();
+                }
+            }
+            return View("CAZZO");
+        }
+
+        [HttpPost, ActionName("EliminaUtente")]
+        public ActionResult EliminaUtenteConferma(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                //connessione col service
+                try
+                {
+                    var wcf = new ServiceReference1.Service1Client();
+                    //chiamo il metodo elimina utente, con parametro l'utente con l'id passato
+                    if (wcf.EliminaDipendente(wcf.getUtenteById(id)))
+                    {
+                        return RedirectToAction("Utenti");
+                    }
+                    else
+                        return Content("CAZZO");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERRORE: " + e.ToString());
+                    return View();
+                }
+            }
+            return View("CAZZO");
+        }
+
     }
 }
