@@ -63,7 +63,8 @@ namespace ClientWCF.Controllers
                     return View();
                 }
             }
-                return View(ut);
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         public ActionResult CreaUtente()
@@ -97,15 +98,16 @@ namespace ClientWCF.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                     else
-                        return Content("CAZZO");
+                        throw new Exception("Impossibile creare nuovo utente!");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
 
@@ -115,13 +117,16 @@ namespace ClientWCF.Controllers
             {
                 Session["ID"] = null;
                 Session["CEO"] = null;
+
+                //ritorno nella home
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERRORE: " + e);
+                ViewBag.Message = e.Message;
+                return View("Error");
             }
-            //ritorno nella home
-            return RedirectToAction("Index", "Home");
+            
         }
 
         public ActionResult Utenti()
@@ -138,7 +143,7 @@ namespace ClientWCF.Controllers
 
                     if (listaDip == null)
                     {
-                        return Content("Non ci sono dipendenti nel db!");
+                        throw new Exception("Non ci sono dipendenti!");
                     }
                     else
                     {
@@ -150,12 +155,13 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
 
-            return View(LP);
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         public ActionResult ModificaUtente(int id)
@@ -171,7 +177,7 @@ namespace ClientWCF.Controllers
                     var dipserver = wcf.getUtenteById(id);
                     if (dipserver == null)
                     {
-                        return Content("Non ci sono utenti con ID = " + id);
+                        throw new Exception("Non ci sono utenti con ID = " + id);
                     }
                     else
                     {
@@ -185,11 +191,12 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         [HttpPost]
@@ -212,17 +219,18 @@ namespace ClientWCF.Controllers
                     }
                     else
                     {
-                        return Content("CAZZO");
+                        throw new Exception("Impossibile modificare utente!");
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
 
@@ -241,11 +249,12 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View("CAZZO");
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         [HttpPost, ActionName("EliminaUtente")]
@@ -263,15 +272,16 @@ namespace ClientWCF.Controllers
                         return RedirectToAction("Utenti");
                     }
                     else
-                        return Content("CAZZO");
+                        throw new Exception("Impossibile eliminare utente!");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View("CAZZO");
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
     }

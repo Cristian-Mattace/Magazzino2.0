@@ -28,7 +28,7 @@ namespace ClientWCF.Controllers
                     //controllo che ritorni un prodotto
                     if (wcf.getProdById(id) == null)
                     {
-                        return Content("Non ci sono prodotti con ID = " + id);
+                        throw new Exception("Impossibile trovare il prodotto con id: "+id);
                     }
                     else
                     {
@@ -51,11 +51,12 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         [HttpPost]
@@ -69,25 +70,33 @@ namespace ClientWCF.Controllers
                     var wcf = new ServiceReference1.Service1Client();
                     int i = (int)Session["ID"];
                     string date = DateTime.UtcNow.ToString("yyyy-MM-dd");
+
+                    //controllo cosa è stato cambiato per metterlo nella descrizione
+                    Prodotto p = new Prodotto();
+                    p.convertiServerToCLient(wcf.getProdById(p1.id));
+                    string cambiamenti = "";
+                    if (p.quantità != p1.quantità) cambiamenti = "Quantità = " + p1.quantità + " ";
+                    if (p.posizione != p1.posizione) cambiamenti = cambiamenti + "Posizione = " + p1.posizione;
                     //controllo che ritorni un prodotto
-                    if (wcf.updateProduct(p1.id, p1.quantità, p1.posizione,i,"Aggiornamento",date))
+                    if (wcf.updateProduct(p1.id, p1.quantità, p1.posizione, i, cambiamenti, date))
                     {
                         //ritorno alla view prodotti tramite redirectToAction
                         return RedirectToAction("Prodotti");
                     }
                     else
                     {
-                        return Content("CAZZO");
+                        throw new Exception("Impossibile aggiornare il prodotto!");
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         public ActionResult Prodotti()
@@ -102,16 +111,18 @@ namespace ClientWCF.Controllers
 
                     if (wcf.getListaProdotti() == null)
                     {
-                        return Content("Non ci sono prodotti nel db!");
+                        throw new Exception("Impossibile stampare i prodotti!");
                     }
                     else
                     {
                         //recupero la lista dei nomi delle categorie e la passo alla vista con viewbag.categorie
                         List<String> nomiCat = new List<string>();
                         ViewBag.categorie = wcf.getNomiCategorie();
+
                         //recupero la lista dei nomi dei produttori e la passo alla vista con viewbag.produttori
                         List<String> nomiProd = new List<string>();
                         ViewBag.produttori = wcf.getNomiProduttori();
+
                         LP.ConvertServerList(wcf.getListaProdotti());
                         return View(LP);
                     }
@@ -119,16 +130,17 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-        
-            return View(LP);
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         public ActionResult CreaProdotto()
         {
+            Prodotto p1 = new Prodotto();
             if (ModelState.IsValid)
             {
                 //connessione col service
@@ -157,16 +169,18 @@ namespace ClientWCF.Controllers
                     }
                     ViewBag.posti = posti;
 
+                    return View(p1);
+
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-        
-            Prodotto p1 = new Prodotto();
-            return View(p1);
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
+
         }
 
         [HttpPost]
@@ -187,15 +201,18 @@ namespace ClientWCF.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                     else
-                        return Content("CAZZO");
+                    {
+                        throw new Exception("Impossibile creare prodotto!");
+                    }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View("CAZZO");
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
 
@@ -208,17 +225,19 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
                     Prodotto p = new Prodotto();
-                    //chiamo il metodo elimina utente, con parametro l'utente con l'id passato
+
+                    //chiedo al server di trovarmi il prodotto con l id specificato e poi lo converto in un model per il client
                     p.convertiServerToCLient(wcf.getProdById(id));
                     return View(p);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = "Impossibile trovare il prodotto!";
+                    return View("Error");
                 }
             }
-            return View("CAZZO");
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         [HttpPost, ActionName("EliminaProdotto")]
@@ -236,15 +255,18 @@ namespace ClientWCF.Controllers
                         return RedirectToAction("Prodotti");
                     }
                     else
-                        return Content("CAZZO");
+                    {
+                        throw new Exception("Impossibile eliminare il prodotto!");
+                    }
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View("CAZZO");
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
 
@@ -262,7 +284,7 @@ namespace ClientWCF.Controllers
                     var prodServer = wcf.getProdById(id);
                     if (prodServer == null)
                     {
-                        return Content("Non ci sono prodotti con ID = " + id);
+                        throw new Exception("Impossibile trovare il prodotto con id: "+id);
                     }
                     else
                     {
@@ -299,11 +321,12 @@ namespace ClientWCF.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
         [HttpPost]
@@ -325,20 +348,23 @@ namespace ClientWCF.Controllers
                     {
                         //ritorno alla view prodotti tramite redirectToAction
                         return RedirectToAction("Prodotti");
+                        
+                        
                     }
                     else
                     {
-                        return Content("CAZZO");
+                        throw new Exception("Impossibile modificare il prodotto!");
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
-            return View();
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
         }
 
     }
