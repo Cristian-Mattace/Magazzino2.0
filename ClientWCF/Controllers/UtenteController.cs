@@ -59,17 +59,17 @@ namespace ClientWCF.Controllers
                         {
                             prodotti = prodotti + x + " - ";
                         }
-                        prodotti = prodotti.Remove(prodotti.Length - 3);
-                        ViewBag.prodottiInEsaurimento = prodotti;
+                        if (prodotti != "")
+                        {
+                            prodotti = prodotti.Remove(prodotti.Length - 3);
+                            ViewBag.prodottiInEsaurimento = prodotti;
+                        }
                         return View("MenuUtente", ut);
                     }
-
-                    
-                    
                 }catch(Exception e)
                 {
-                    Console.WriteLine("ERRORE: " + e.ToString());
-                    return View();
+                    ViewBag.Message = e.Message;
+                    return View("Error");
                 }
             }
             ViewBag.Message = "Dati non consoni al Model specificato!";

@@ -6,8 +6,11 @@
 
 <h2>Menu Dipendente</h2>
 
-
+@if (ViewBag.prodottiInEsaurimento != null)
+{
 <script>alert("I seguenti prodotti sono in esaurimento: " + "@ViewBag.prodottiInEsaurimento");</script>
+}
+
 <div>
     @if ((int)Session["CEO"] == 1)
     {
