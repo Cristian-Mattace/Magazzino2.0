@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                     @if (Session["ID"] != null && Session["CEO"] != null)
                     {
-                        <li>@Html.ActionLink("Il mio account", "ModificaUtente", new { id = Session["ID"] })</li>
+                        <li>@Html.ActionLink("Il mio account", "ModificaUtente", "Utente")</li>
                         <li>@Html.ActionLink("Prodotti", "Prodotti", "Prodotto")</li>
 
                         if ((int)Session["CEO"] == 1)
@@ -31,6 +31,7 @@
                             <li>@Html.ActionLink("Crea prodotto", "CreaProdotto", "Prodotto")</li>
                             <li>@Html.ActionLink("Utenti", "Utenti", "Utente")</li>
                             <li>@Html.ActionLink("Crea utente", "CreaUtente", "Utente")</li>
+                            <li>@Html.ActionLink("Operazioni", "Operazioni", "Operazione")</li>
                         }
                     }
                 </ul>

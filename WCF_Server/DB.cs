@@ -830,7 +830,7 @@ namespace WCF_Server
                 {
                     //ritorno tutte le operazioni
                     command1.CommandText = "SELECT * " +
-                    "FROM OPERAZIONI;";
+                    "FROM OPERAZIONE;";
 
                     using (MySqlDataReader reader = command1.ExecuteReader())
                     {

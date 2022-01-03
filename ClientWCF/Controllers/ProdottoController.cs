@@ -346,10 +346,17 @@ namespace ClientWCF.Controllers
                     int idUser = (int)Session["ID"];
                     string date = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
+                    //controllo cosa è stato cambiato per metterlo nella descrizione
+                    Prodotto p = new Prodotto();
+                    p.convertiServerToCLient(wcf.getProdById(p1.id));
+                    string cambiamenti = "";
+                    if (p.quantità != p1.quantità) cambiamenti = "Quantità = " + p1.quantità + " ";
+                    if (p.posizione != p1.posizione) cambiamenti = cambiamenti + "Posizione = " + p1.posizione;
+
                     var ProdottoToServer = p1.convertiClientToServer();
 
                     //controllo che ritorni true
-                    if (wcf.ProductUpdateCeo(ProdottoToServer,idUser,date,"Aggiornamento"))
+                    if (wcf.ProductUpdateCeo(ProdottoToServer,idUser,date,cambiamenti))
                     {
                         //ritorno alla view prodotti tramite redirectToAction
                         return RedirectToAction("Prodotti");

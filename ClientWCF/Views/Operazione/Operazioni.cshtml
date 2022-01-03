@@ -1,0 +1,37 @@
+﻿@model ClientWCF.Models.ListaOperazioni
+
+@{
+    ViewBag.Title = "Operazioni";
+}
+
+<h2>Operazioni</h2>
+
+<table width="100%">
+    <tr>
+        <th style="text-align:center">ID</th>
+        <th style="text-align:center">ID dipendente</th>
+        <th style="text-align:center">Data</th>
+        <th style="text-align:center">Descrizione</th>
+        <th style="text-align:center">ID prodotto</th>
+    </tr>
+    @{foreach (var i in Model.listaOperazione)
+        {
+        <tr style="text-align:center">
+            <td>
+                @i.idOperazione
+            </td>
+            <td>
+                @i.idDipendente
+            </td>
+            <td>
+                @i.data
+            </td>
+            <td>
+                @i.descrizione
+            </td>
+            <td>
+                @i.idProdotto
+            </td>
+        </tr> } }
+</table>
+
