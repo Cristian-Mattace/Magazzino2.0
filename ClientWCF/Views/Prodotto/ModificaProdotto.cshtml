@@ -64,7 +64,9 @@
                             Value = cnt2.ToString()
                         });
                         cnt2++;
-                    } }
+                    } 
+                    
+                }
                 @Html.DropDownListFor(model => model.categoria, listItems2, new { @class = "form-control" })
             </div>
         </div>
@@ -101,6 +103,3 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

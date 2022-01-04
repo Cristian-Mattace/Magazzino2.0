@@ -70,7 +70,7 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
                     int idDip = (int)Session["ID"];
-                    string date = DateTime.UtcNow.ToString("yyyy-MM-dd");
+                    string date = DateTime.UtcNow.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
 
                     //controllo cosa è stato cambiato per metterlo nella descrizione
                     Prodotto p = new Prodotto();
@@ -78,6 +78,9 @@ namespace ClientWCF.Controllers
                     string cambiamenti = "";
                     if (p.quantità != p1.quantità) cambiamenti = "Quantità = " + p1.quantità + " ";
                     if (p.posizione != p1.posizione) cambiamenti = cambiamenti + "Posizione = " + p1.posizione;
+
+                    //se non cambiamo niente torniamo alla lista dei prodotti
+                    if (p.quantità == p1.quantità && p.posizione == p1.posizione) return RedirectToAction("Prodotti");
 
                     //convertiamo il model in un oggetto per il server
                     var ps = p1.convertiClientToServer();
@@ -112,7 +115,16 @@ namespace ClientWCF.Controllers
                 //connessione col service
                 try
                 {
+
                     var wcf = new ServiceReference1.Service1Client();
+
+                    //otteniamo la lista di categorie e la inseriamo in una combobox nella view
+                    List<String> nomiCate = new List<string>();
+                    foreach (var x in wcf.getNomiCategorie())
+                    {
+                        nomiCate.Add(x);
+                    }
+                    ViewBag.nomiCate = nomiCate;
 
                     if (wcf.getListaProdotti() == null)
                     {
@@ -121,14 +133,66 @@ namespace ClientWCF.Controllers
                     else
                     {
                         //recupero la lista dei nomi delle categorie e la passo alla vista con viewbag.categorie
-                        List<String> nomiCat = new List<string>();
-                        ViewBag.categorie = wcf.getNomiCategorie();
+                        ViewBag.categorie = nomiCate;
 
                         //recupero la lista dei nomi dei produttori e la passo alla vista con viewbag.produttori
-                        List<String> nomiProd = new List<string>();
                         ViewBag.produttori = wcf.getNomiProduttori();
 
                         LP.ConvertServerList(wcf.getListaProdotti());
+                        return View(LP);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Message = e.Message;
+                    return View("Error");
+                }
+            }
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult Prodotti(String Categoria)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                var selectedValue = Categoria;
+                ListaProdotti LP = new ListaProdotti();
+
+                //connessione col service
+                try
+                {
+
+                    var wcf = new ServiceReference1.Service1Client();
+
+                    //otteniamo la lista di categorie e la inseriamo in una combobox nella view
+                    List<String> nomiCate = new List<string>();
+                    foreach (var x in wcf.getNomiCategorie())
+                    {
+                        nomiCate.Add(x);
+                    }
+                    ViewBag.nomiCate = nomiCate;
+
+                    //ottenialmo la lista di prodotti con categoria scelta
+                    var prodByCat = wcf.getListaProdottiByCategory(int.Parse(selectedValue));
+
+
+
+                    if (prodByCat == null)
+                    {
+                        throw new Exception("Impossibile stampare i prodotti!");
+                    }
+                    else
+                    {
+                        //recupero la lista dei nomi delle categorie e la passo alla vista con viewbag.categorie
+                        ViewBag.categorie = nomiCate;
+
+                        //recupero la lista dei nomi dei produttori e la passo alla vista con viewbag.produttori
+                        ViewBag.produttori = wcf.getNomiProduttori();
+                        LP.ConvertServerList(prodByCat);
                         return View(LP);
                     }
 
@@ -344,7 +408,7 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
                     int idUser = (int)Session["ID"];
-                    string date = DateTime.UtcNow.ToString("yyyy-MM-dd");
+                    string date = DateTime.UtcNow.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
 
                     //controllo cosa è stato cambiato per metterlo nella descrizione
                     Prodotto p = new Prodotto();
@@ -352,6 +416,11 @@ namespace ClientWCF.Controllers
                     string cambiamenti = "";
                     if (p.quantità != p1.quantità) cambiamenti = "Quantità = " + p1.quantità + " ";
                     if (p.posizione != p1.posizione) cambiamenti = cambiamenti + "Posizione = " + p1.posizione;
+
+                    //se cambio il resto scrive aggiornamento generico
+                    if (p.nome != p1.nome || p.produttore != p1.produttore || p.categoria != p1.categoria || p.prezzo != p1.prezzo) cambiamenti = "Aggiornamento generico";
+                    //se non cambio nulla torno alla view
+                    if (p.nome == p1.nome && p.produttore == p1.produttore && p.categoria == p1.categoria && p.prezzo == p1.prezzo && p.quantità == p1.quantità && p.posizione == p1.posizione) return RedirectToAction("Prodotti");
 
                     var ProdottoToServer = p1.convertiClientToServer();
 

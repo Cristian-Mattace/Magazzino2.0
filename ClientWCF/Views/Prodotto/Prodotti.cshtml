@@ -5,6 +5,33 @@
 
 <h2>Prodotti</h2>
 
+<b>Ricerca per categoria</b>
+@using (Html.BeginForm("Prodotti", "Prodotto", FormMethod.Post))
+{
+    <div class="col-md-10">
+        @{ List<SelectListItem> listItems2 = new List<SelectListItem>();
+            var cnt2 = 1;
+            foreach (var x in ViewBag.nomiCate)
+            {
+                listItems2.Add(new SelectListItem
+                {
+                    Text = x,
+                    Value = cnt2.ToString()
+                });
+                cnt2++;
+            }
+
+        }
+        @Html.DropDownList("Categoria", listItems2, new { @class = "form-control" })
+
+        <input type="submit" value="Cerca" />
+    </div>
+
+}
+
+<br>
+<br>
+<br>
 <table width="100%">
     <tr>
         <th style="text-align:center">ID</th>
@@ -22,48 +49,48 @@
     </tr>
     @{foreach (var i in Model.listaProducts)
         {
-        <tr style="text-align:center">
-            <td>
-                @i.id
-            </td>
-            <td>
-                @i.nome
-            </td>
-            <td>
-                €@i.prezzo
-            </td>
-            <td>
-                @ViewBag.produttori[i.produttore - 1]
-            </td>
-            <td>
-                @ViewBag.categorie[i.categoria - 1]
-            </td>
-            <td>
-                @i.quantità
-            </td>
-            <td>
-                @i.posizione
-            </td>
-            @if ((int)Session["CEO"] == 1)
-            {
+            <tr style="text-align:center">
                 <td>
-                    @Html.ActionLink("Modifica", "ModificaProdotto", new { id = i.id })
+                    @i.id
                 </td>
-            }
-            else
-            {
                 <td>
-                    @Html.ActionLink("Modifica", "AzioniProdotto", new { id = i.id })
+                    @i.nome
                 </td>
-            }
-            
-            @if ((int)Session["CEO"] == 1)
-            {
                 <td>
-                    @Html.ActionLink("Elimina", "EliminaProdotto", new { id = i.id })
+                    €@i.prezzo
                 </td>
-            }
-        </tr>
+                <td>
+                    @ViewBag.produttori[i.produttore - 1]
+                </td>
+                <td>
+                    @ViewBag.categorie[i.categoria - 1]
+                </td>
+                <td>
+                    @i.quantità
+                </td>
+                <td>
+                    @i.posizione
+                </td>
+                @if ((int)Session["CEO"] == 1)
+                {
+                    <td>
+                        @Html.ActionLink("Modifica", "ModificaProdotto", new { id = i.id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Modifica", "AzioniProdotto", new { id = i.id })
+                    </td>
+                }
+
+                @if ((int)Session["CEO"] == 1)
+                {
+                    <td>
+                        @Html.ActionLink("Elimina", "EliminaProdotto", new { id = i.id })
+                    </td>
+                }
+            </tr>
         }
-      }
+    }
 </table>

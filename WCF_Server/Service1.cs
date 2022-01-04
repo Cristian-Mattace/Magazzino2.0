@@ -347,7 +347,25 @@ namespace WCF_Server
             }
         }
 
+        public ListaProdottiServer getListaProdottiByCategory(int idcat)
+        {
+            ListaProdottiServer lsp = new ListaProdottiServer();
 
+            try
+            {
+                //ci connettiamo al DB
+                var x = databse1.getsqlconnect(databse1.connectstring());
+
+                //ritorna la lista di prodotti
+                lsp = databse1.getListaProdottiByCategory(x, idcat);
+                return lsp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Errore: " + e.ToString());
+                return null;
+            }
+        }
         public ListaOperazioniServer getOperazioni()
         {
             ListaOperazioniServer los = new ListaOperazioniServer();

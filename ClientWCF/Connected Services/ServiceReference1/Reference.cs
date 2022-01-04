@@ -634,6 +634,12 @@ namespace ClientWCF.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getOperazioni", ReplyAction="http://tempuri.org/IService1/getOperazioniResponse")]
         System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaOperazioniServer> getOperazioniAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getListaProdottiByCategory", ReplyAction="http://tempuri.org/IService1/getListaProdottiByCategoryResponse")]
+        ClientWCF.ServiceReference1.ListaProdottiServer getListaProdottiByCategory(int idcat);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getListaProdottiByCategory", ReplyAction="http://tempuri.org/IService1/getListaProdottiByCategoryResponse")]
+        System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaProdottiServer> getListaProdottiByCategoryAsync(int idcat);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -805,6 +811,14 @@ namespace ClientWCF.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaOperazioniServer> getOperazioniAsync() {
             return base.Channel.getOperazioniAsync();
+        }
+        
+        public ClientWCF.ServiceReference1.ListaProdottiServer getListaProdottiByCategory(int idcat) {
+            return base.Channel.getListaProdottiByCategory(idcat);
+        }
+        
+        public System.Threading.Tasks.Task<ClientWCF.ServiceReference1.ListaProdottiServer> getListaProdottiByCategoryAsync(int idcat) {
+            return base.Channel.getListaProdottiByCategoryAsync(idcat);
         }
     }
 }

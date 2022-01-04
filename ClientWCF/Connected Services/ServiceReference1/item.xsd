@@ -243,4 +243,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getListaProdottiByCategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idcat" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getListaProdottiByCategoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/WCF_Server" minOccurs="0" name="getListaProdottiByCategoryResult" nillable="true" type="q18:ListaProdottiServer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

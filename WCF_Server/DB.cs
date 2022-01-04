@@ -129,6 +129,51 @@ namespace WCF_Server
             }
         }
 
+        public ListaProdottiServer getListaProdottiByCategory(MySqlConnection x, int idcat)
+        {
+            try
+            {
+                ListaProdottiServer lps = new ListaProdottiServer();
+                x.Open();
+                using (MySqlCommand command1 = x.CreateCommand())
+                {
+
+                    command1.CommandText = "SELECT * "+
+                                            "FROM prodotto "+
+                                            "WHERE prodotto.IDCategoria = "+idcat+";";
+
+                    using (MySqlDataReader reader = command1.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //legge i risultati ottenuti dalla query, in questo caso ritorna i prodotti che hanno una determinata categoria
+
+                            var id = reader.GetInt32(0);
+                            var nome = reader.GetString(1);
+                            var idProduttore = reader.GetInt32(2);
+                            var idCat = reader.GetInt32(3);
+                            var prezzo = reader.GetFloat(4);
+                            var quantita = reader.GetInt32(5);
+                            var posizione = reader.GetString(6);
+
+                            ProdottoServer ps = new ProdottoServer(id, nome, idProduttore, prezzo, idCat, quantita, posizione);
+                            lps.listaProducts.Add(ps);
+
+                        }
+                        x.Close();
+                        return lps;
+                    }
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRORE: " + e.ToString());
+                return null;
+            }
+
+        }
+
         public ListaProdottiServer getListaProdotti(MySqlConnection x)
         {
             try

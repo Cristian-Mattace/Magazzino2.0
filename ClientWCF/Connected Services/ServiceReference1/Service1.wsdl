@@ -116,6 +116,12 @@
   <wsdl:message name="IService1_getOperazioni_OutputMessage">
     <wsdl:part name="parameters" element="tns:getOperazioniResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_getListaProdottiByCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:getListaProdottiByCategory" />
+  </wsdl:message>
+  <wsdl:message name="IService1_getListaProdottiByCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getListaProdottiByCategoryResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork" message="tns:IService1_DoWork_InputMessage" />
@@ -188,6 +194,10 @@
     <wsdl:operation name="getOperazioni">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/getOperazioni" message="tns:IService1_getOperazioni_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/getOperazioniResponse" message="tns:IService1_getOperazioni_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getListaProdottiByCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/getListaProdottiByCategory" message="tns:IService1_getListaProdottiByCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/getListaProdottiByCategoryResponse" message="tns:IService1_getListaProdottiByCategory_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -347,6 +357,15 @@
     </wsdl:operation>
     <wsdl:operation name="getOperazioni">
       <soap:operation soapAction="http://tempuri.org/IService1/getOperazioni" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListaProdottiByCategory">
+      <soap:operation soapAction="http://tempuri.org/IService1/getListaProdottiByCategory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

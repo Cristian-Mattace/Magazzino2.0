@@ -66,5 +66,9 @@ namespace WCF_Server
         [OperationContract]
         ListaOperazioniServer getOperazioni();
 
+        [OperationContract]
+        ListaProdottiServer getListaProdottiByCategory(int idcat);
+
+
     }
 }
