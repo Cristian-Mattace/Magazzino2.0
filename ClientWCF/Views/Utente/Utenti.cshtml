@@ -5,7 +5,18 @@
 }
 
 <h2>Utenti</h2>
-
+@using (Html.BeginForm("Utenti", "Utente", FormMethod.Post))
+{
+    @Html.TextBox("IdDip", null,
+    new
+    {
+        @class = "span3",
+        type = "number",
+        required = "required"
+    })
+    <input type="submit" value="Cerca" />
+    <font color="red">@ViewBag.Message</font>
+}
 
 <table width="100%">
     <tr>
@@ -15,42 +26,43 @@
         <th style="text-align:center">Telefono</th>
         <th style="text-align:center">Password</th>
         <th style="text-align:center">Amministratore</th>
-        <th style="text-align:center">Modifica</th>       
+        <th style="text-align:center">Modifica</th>
         <th style="text-align:center">Elimina</th>
     </tr>
     @{foreach (var i in Model.listaDipend)
         {
-    <tr style="text-align:center">
-        <td>
-            @i.id
-        </td>
-        <td>
-            @i.nome
-        </td>
-        <td>
-            @i.cognome
-        </td>
-        <td>
-            @i.telefono
-        </td>
-        <td>
-            @i.password
-        </td>
-        <td>
-            @i.amministratore
-        </td>
+            <tr style="text-align:center">
+                <td>
+                    @i.id
+                </td>
+                <td>
+                    @i.nome
+                </td>
+                <td>
+                    @i.cognome
+                </td>
+                <td>
+                    @i.telefono
+                </td>
+                <td>
+                    @i.password
+                </td>
+                <td>
+                    @i.amministratore
+                </td>
 
-        <td>
-            @Html.ActionLink("Modifica", "ModificaUtente", new { id = i.id })
-        </td> 
-        @if (i.amministratore == false)
-        {
-        <td>
-            @Html.ActionLink("Elimina", "EliminaUtente", new { id = i.id })
-        </td>
-         }
-
-        </tr> 
+                <td>
+                    @Html.ActionLink("Modifica", "ModificaUtente", new { id = i.id })
+                </td>
+                @if (i.amministratore == false)
+                {
+                    <td>
+                        @Html.ActionLink("Elimina", "EliminaUtente", new { id = i.id })
+                    </td>
                 }
-            }
+
+            </tr>
+
+        }
+    }
 </table>

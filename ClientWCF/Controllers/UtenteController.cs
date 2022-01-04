@@ -166,6 +166,44 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        [HttpPost]
+        public ActionResult Utenti(String IdDip)
+        {
+            var dip = IdDip;
+
+            ListaDipendenti LP = new ListaDipendenti();
+            if (ModelState.IsValid)
+            {
+                //connessione col service
+                try
+                {
+                    var wcf = new ServiceReference1.Service1Client();
+
+                    var serverDip = wcf.getUtenteById(int.Parse(dip));       
+
+                    if (serverDip == null)
+                    {
+                        throw new Exception("Non ci sono dipendenti con ID: " + dip);
+                    }
+                    else
+                    {
+                        Dipendente dp = new Dipendente();
+                        dp.convertiServerToCLient(serverDip);
+                        LP.listaDipend.Add(dp);
+                        return View(LP);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Message = e.Message;
+                    return View("Error");
+                }
+            }
+
+            ViewBag.Message = "Dati non consoni al Model specificato!";
+            return View("Error");
+        }
 
         public ActionResult ModificaUtente(int id)
         {

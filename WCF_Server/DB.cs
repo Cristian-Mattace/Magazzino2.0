@@ -298,6 +298,7 @@ namespace WCF_Server
                             return ps;
                         }
                         x.Close();
+
                     }
 
                     x.Close();
