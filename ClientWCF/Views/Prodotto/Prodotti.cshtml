@@ -8,6 +8,7 @@
 <b>Ricerca per categoria</b>
 @using (Html.BeginForm("Prodotti", "Prodotto", FormMethod.Post))
 {
+    <br>
     <div class="col-md-10">
         @{ List<SelectListItem> listItems2 = new List<SelectListItem>();
             var cnt2 = 1;
@@ -20,18 +21,19 @@
                 });
                 cnt2++;
             }
-
         }
         @Html.DropDownList("Categoria", listItems2, new { @class = "form-control" })
-
-        <input type="submit" value="Cerca" />
+        <br>
+        <input type="submit" value="Cerca" class="btn btn-default" />
     </div>
-
+    <br>
+    <br>
+    <br>
 }
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
 <table width="100%">
     <tr>
         <th style="text-align:center">ID</th>
