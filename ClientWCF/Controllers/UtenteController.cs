@@ -167,7 +167,7 @@ namespace ClientWCF.Controllers
         }
 
 
-        public ActionResult ModificaUtente()
+        public ActionResult ModificaUtente(int id)
         {
             Dipendente d = new Dipendente();
             if (ModelState.IsValid)
@@ -177,10 +177,10 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
                     //controllo che ritorni un prodotto
-                    var dipserver = wcf.getUtenteById((int)Session["ID"]);
+                    var dipserver = wcf.getUtenteById(id);
                     if (dipserver == null)
                     {
-                        throw new Exception("Non ci sono utenti con ID = " + (int)Session["ID"]);
+                        throw new Exception("Non ci sono utenti con ID = " + id);
                     }
                     else
                     {
