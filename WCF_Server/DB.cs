@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-//using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,22 @@ namespace WCF_Server
 {
     class DB
     {
-        private string port = "3306;";
-        private string name = "magazzino";
-        private string user = "root;";
-        private string passw = ";";
-        private string address = "127.0.0.1;";
+        
+
+        public DB()
+        {
+            this.port= "3306;";
+            this.name = "magazzino";
+            this.user = "root;";
+            this.passw= ";";
+            this.address = "127.0.0.1;";
+    }
+
+        string port { get; set; }
+        string name { get; set; }
+        string user { get; set; }
+        string passw { get; set; }
+        string address { get; set; }
 
 
         //stringa di connessione al DB
@@ -207,8 +217,7 @@ namespace WCF_Server
                         x.Close();
                         return lps;
                     }
-                    x.Close();
-                    return null;
+                    
                 }
             }
             catch (Exception e)
@@ -335,8 +344,7 @@ namespace WCF_Server
                         x.Close();
                         return posti;
                     }
-                    x.Close();
-                    return null;
+                   
                 }
             }
             catch (Exception e)
@@ -456,7 +464,6 @@ namespace WCF_Server
                      Console.WriteLine("  Message: {0}", ex2.Message);
                      return false;
                  }
-                //return false;
             }
         }
 
@@ -646,8 +653,7 @@ namespace WCF_Server
                         x.Close();
                         return categorie;
                     }
-                    x.Close();
-                    return null;
+                    
                 }
             }
             catch (Exception e)
@@ -682,8 +688,7 @@ namespace WCF_Server
                         x.Close();
                         return produttori;
                     }
-                    x.Close();
-                    return null;
+                    
                 }
             }
             catch (Exception e)
@@ -854,8 +859,7 @@ namespace WCF_Server
                         x.Close();
                         return prodotti;
                     }
-                    x.Close();
-                    return null;
+                    
                 }
             }
             catch (Exception e)
@@ -895,8 +899,7 @@ namespace WCF_Server
                         x.Close();
                         return operazioni;
                     }
-                    x.Close();
-                    return null;
+                   
                 }
             }
             catch (Exception e)
