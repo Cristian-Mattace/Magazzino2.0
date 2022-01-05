@@ -15,7 +15,7 @@ namespace ClientWCF.Controllers
             return View();
         }
 
-
+        //recupera tutte le operazioni del DB e le passa alla view
         public ActionResult Operazioni()
         {
             ListaOperazioni LO = new ListaOperazioni();
@@ -26,6 +26,7 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
 
+                    //in listaOpe ho tutte le operazioni
                     var listaOpe = wcf.getOperazioni();
 
                     if (listaOpe == null)
@@ -34,7 +35,9 @@ namespace ClientWCF.Controllers
                     }
                     else
                     {
+                        //converto le la lista di operazioni da server a client
                         LO.ConvertServerList(listaOpe);
+                        //ritorno alla view con la lista operazioni client
                         return View(LO);
                     }
 

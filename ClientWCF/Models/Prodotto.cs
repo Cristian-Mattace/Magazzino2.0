@@ -23,6 +23,7 @@ namespace ClientWCF.Models
         [Display(Name = "Posizione")]
         public string posizione { get; set; }
 
+        //metodo per convertire da server a client
         public void convertiServerToCLient(ProdottoServer ds)
         {
             this.id = ds.id;
@@ -34,6 +35,7 @@ namespace ClientWCF.Models
             this.posizione = ds.posizione;
         }
 
+        //metodo per convertire da client a server
         public ProdottoServer convertiClientToServer()
         {
 

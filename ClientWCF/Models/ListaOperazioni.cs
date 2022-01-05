@@ -14,7 +14,7 @@ namespace ClientWCF.Models
         }
         public List<Operazione> listaOperazione { get; set; }
 
-
+        //metodo per convertire da server a client
         public void ConvertServerList(ListaOperazioniServer loserver)
         {
             foreach (var c in loserver.listaOpe)

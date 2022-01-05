@@ -12,9 +12,9 @@ namespace ClientWCF.Models
         {
             this.listaProducts = new List<Prodotto>();
         }
-        public List<Prodotto> listaProducts { get; set; } 
+        public List<Prodotto> listaProducts { get; set; }
 
-
+        //metodo per convertire da server a client
         public void ConvertServerList(ListaProdottiServer lpserver)
         {
             foreach(var c in lpserver.listaProducts)

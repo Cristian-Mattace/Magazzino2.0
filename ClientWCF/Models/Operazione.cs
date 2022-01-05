@@ -20,7 +20,7 @@ namespace ClientWCF.Models
         [Display(Name = "ID prodotto")]
         public int idProdotto { get; set; }
 
-
+        //metodo per convertire da server a client
         public void convertiServerToCLient(OperazioneServer os)
         {
             this.idOperazione = os.idOperazione;

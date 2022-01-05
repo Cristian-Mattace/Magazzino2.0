@@ -16,7 +16,7 @@ namespace ClientWCF.Controllers
             return View();
         }
 
-
+        //recupera il prodotto che il dipendente vuole modificare e lo ritorna alla view
         public ActionResult AzioniProdotto(int id)
         {
             Prodotto p = new Prodotto();
@@ -33,7 +33,7 @@ namespace ClientWCF.Controllers
                     }
                     else
                     {
-                        //converto il prodotto da server a client e chiamo la view con il prodotto client
+                        //converto il prodotto da server a client
                         p.convertiServerToCLient(wcf.getProdById(id));
 
                         //Creo una lista di stringhe ed aggiungo posizione corrente del prodotto + quelle disponibili
@@ -44,8 +44,11 @@ namespace ClientWCF.Controllers
                             posizioni.Add(z);
                         }
 
+                        //aggiungo le posizioni al viewbag.data
                         ViewBag.data = posizioni;
+                        //aggiungo il nome del prodotto al viewbag.message
                         ViewBag.Message = p.nome;
+                        //ritorno alla view passandogli il prodotto selezionato
                         return View(p);
                     }
 
@@ -60,6 +63,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //chiama il metodo del server per modificare il prodotto e ritorna alla lista prodotti aggiornata
         [HttpPost]
         public ActionResult AzioniProdotto(Prodotto p1)
         {
@@ -69,7 +73,9 @@ namespace ClientWCF.Controllers
                 try
                 {
                     var wcf = new ServiceReference1.Service1Client();
+                    //recupero l'id del dipendente che vuole fare la modifica
                     int idDip = (int)Session["ID"];
+                    //recupero la data attuale
                     string date = DateTime.UtcNow.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
 
                     //controllo cosa è stato cambiato per metterlo nella descrizione
@@ -107,6 +113,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //recupero tutti i prodotti dal server e li passo alla view
         public ActionResult Prodotti()
         {
             ListaProdotti LP = new ListaProdotti();
@@ -115,7 +122,6 @@ namespace ClientWCF.Controllers
                 //connessione col service
                 try
                 {
-
                     var wcf = new ServiceReference1.Service1Client();
 
                     //otteniamo la lista di categorie e la inseriamo in una combobox nella view
@@ -124,6 +130,7 @@ namespace ClientWCF.Controllers
                     {
                         nomiCate.Add(x);
                     }
+                    //aggiungo le categorie alla viewbag.nomiCate
                     ViewBag.nomiCate = nomiCate;
 
                     if (wcf.getListaProdotti() == null)
@@ -138,7 +145,9 @@ namespace ClientWCF.Controllers
                         //recupero la lista dei nomi dei produttori e la passo alla vista con viewbag.produttori
                         ViewBag.produttori = wcf.getNomiProduttori();
 
+                        //converto la lista di prodotti da server a client
                         LP.ConvertServerList(wcf.getListaProdotti());
+                        //ritorno alla view con la lista prodotti client
                         return View(LP);
                     }
 
@@ -153,19 +162,19 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //recupera tutti i prodotti della categoria selezionata e li passa alla view
         [HttpPost]
         public ActionResult Prodotti(String Categoria)
         {
-            
             if (ModelState.IsValid)
             {
+                //recupero il valore della categoria
                 var selectedValue = Categoria;
                 ListaProdotti LP = new ListaProdotti();
 
                 //connessione col service
                 try
                 {
-
                     var wcf = new ServiceReference1.Service1Client();
 
                     //otteniamo la lista di categorie e la inseriamo in una combobox nella view
@@ -179,8 +188,6 @@ namespace ClientWCF.Controllers
                     //ottenialmo la lista di prodotti con categoria scelta
                     var prodByCat = wcf.getListaProdottiByCategory(int.Parse(selectedValue));
 
-
-
                     if (prodByCat == null)
                     {
                         throw new Exception("Impossibile stampare i prodotti!");
@@ -192,7 +199,10 @@ namespace ClientWCF.Controllers
 
                         //recupero la lista dei nomi dei produttori e la passo alla vista con viewbag.produttori
                         ViewBag.produttori = wcf.getNomiProduttori();
+
+                        //converto la lista prodotti da server a client
                         LP.ConvertServerList(prodByCat);
+                        //ritorno la view con la lista prodotti client
                         return View(LP);
                     }
 
@@ -207,6 +217,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //recupera le categorie, i produttori ed i posti disponibili e li passa alla view
         public ActionResult CreaProdotto()
         {
             Prodotto p1 = new Prodotto();
@@ -217,6 +228,7 @@ namespace ClientWCF.Controllers
                 {
                     var wcf = new ServiceReference1.Service1Client();
 
+                    //recupero i nomi delle categorie
                     List<String> nomiCat = new List<string>(); 
                     foreach(var x in wcf.getNomiCategorie())
                     {
@@ -224,6 +236,7 @@ namespace ClientWCF.Controllers
                     }
                     ViewBag.nomiCat = nomiCat;
 
+                    //recupero i nomi dei produttori
                     List<String> nomiProd = new List<string>();
                     foreach (var x in wcf.getNomiProduttori())
                     {
@@ -231,6 +244,7 @@ namespace ClientWCF.Controllers
                     }
                     ViewBag.nomiProd = nomiProd;
 
+                    //recupero i posti disponibili
                     List<String> posti = new List<string>();
                     foreach (var x in wcf.getFreePos())
                     {
@@ -252,6 +266,7 @@ namespace ClientWCF.Controllers
 
         }
 
+        //chiamo il metodo per creaare il prodotto del server e ritorno alla lista di prodotti aggiornata
         [HttpPost]
         public ActionResult CreaProdotto(Prodotto p1)
         {
@@ -264,7 +279,7 @@ namespace ClientWCF.Controllers
 
                     var ProductToServer = p1.convertiClientToServer();
 
-
+                    //controllo che la creazione vada a buon fine
                     if (wcf.CreaProdotto(ProductToServer))
                     {
                         return RedirectToAction("Index", "Home");
@@ -285,6 +300,7 @@ namespace ClientWCF.Controllers
         }
 
 
+        //recupera l'oggetto che voglio eliminare e lo passo alla view
         public ActionResult EliminaProdotto(int id)
         {
             if (ModelState.IsValid)
@@ -309,6 +325,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //confermo l'eliminazione del prodotto chiamando il metodo del server e ritornando alla lista prodotti aggiornata
         [HttpPost, ActionName("EliminaProdotto")]
         public ActionResult EliminaProdottoConferma(int id)
         {
@@ -338,8 +355,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
-
-
+        //recupero il prodotto che il CEO vuole modificare e lo passo alla view
         public ActionResult ModificaProdotto(int id)
         {
             Prodotto p = new Prodotto();
@@ -360,7 +376,7 @@ namespace ClientWCF.Controllers
                         //converto il prodotto da server a client e chiamo la view con il prodotto client
                         p.convertiServerToCLient(prodServer);
 
-
+                        //recupero le categorie
                         List<String> nomiCat = new List<string>();
                         foreach (var x in wcf.getNomiCategorie())
                         {
@@ -368,6 +384,7 @@ namespace ClientWCF.Controllers
                         }
                         ViewBag.nomiCat = nomiCat;
 
+                        //recupero i produttori
                         List<String> nomiProd = new List<string>();
                         foreach (var x in wcf.getNomiProduttori())
                         {
@@ -375,6 +392,7 @@ namespace ClientWCF.Controllers
                         }
                         ViewBag.nomiProd = nomiProd;
 
+                        //Recupero i posti disponibili
                         List<String> posti = new List<string>();
                         posti.Add(p.posizione);
                         foreach (var x in wcf.getFreePos())
@@ -398,6 +416,7 @@ namespace ClientWCF.Controllers
             return View("Error");
         }
 
+        //chiamo il metodo per modificare il prodotto CEO e ritorno alla lista di prodotti aggiornata
         [HttpPost]
         public ActionResult ModificaProdotto(Prodotto p1)
         {
@@ -407,7 +426,9 @@ namespace ClientWCF.Controllers
                 try
                 {
                     var wcf = new ServiceReference1.Service1Client();
+                    //recupero l'id del CEO
                     int idUser = (int)Session["ID"];
+                    //recupero la data
                     string date = DateTime.UtcNow.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
 
                     //controllo cosa è stato cambiato per metterlo nella descrizione
@@ -428,9 +449,7 @@ namespace ClientWCF.Controllers
                     if (wcf.ProductUpdateCeo(ProdottoToServer,idUser,date,cambiamenti))
                     {
                         //ritorno alla view prodotti tramite redirectToAction
-                        return RedirectToAction("Prodotti");
-                        
-                        
+                        return RedirectToAction("Prodotti");                        
                     }
                     else
                     {

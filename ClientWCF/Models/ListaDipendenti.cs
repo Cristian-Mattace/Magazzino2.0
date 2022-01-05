@@ -14,6 +14,7 @@ namespace ClientWCF.Models
         }
         public List<Dipendente> listaDipend { get; set; }
 
+        //metodo per convertire da server a client
         public void convertiListaDipendentiServer(ListaDipendentiServer lds) 
         {
             foreach(var x in lds.listaDipendServer)

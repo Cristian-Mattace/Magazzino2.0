@@ -29,6 +29,7 @@ namespace ClientWCF.Models
         [Display(Name = "Amministratore")]
         public bool amministratore { get; set; }
 
+        //metodo per convertire da server a client
         public void convertiServerToCLient(DipendenteServer ds)
         {
             this.id = ds.id;
@@ -39,6 +40,7 @@ namespace ClientWCF.Models
             this.amministratore = ds.amministratore;
         }
 
+        //metodo per convertire da client a server
         public DipendenteServer convertiClientToServer()
         {
 

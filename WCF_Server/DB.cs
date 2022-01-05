@@ -9,8 +9,6 @@ namespace WCF_Server
 {
     class DB
     {
-        
-
         public DB()
         {
             this.port= "3306;";
@@ -18,7 +16,7 @@ namespace WCF_Server
             this.user = "root;";
             this.passw= ";";
             this.address = "127.0.0.1;";
-    }
+        }
 
         string port { get; set; }
         string name { get; set; }
