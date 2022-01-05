@@ -40,6 +40,7 @@ namespace WCF_Server
             return dbconnect;
         }
 
+        //metodo per login
         public DipendenteServer accessoutenti(MySqlConnection x, int n, string p)
         {
             try
@@ -51,7 +52,7 @@ namespace WCF_Server
 
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query login
                     command1.CommandText = "SELECT * FROM `dipendente` WHERE dipendente.Password='" + p + "' AND dipendente.IDDipendente=" + n + ";";
 
                     using (MySqlDataReader reader = command1.ExecuteReader())
@@ -73,14 +74,11 @@ namespace WCF_Server
 
                             x.Close(); //chiudiamo la connessione al DB
                             return ds1;
-
                         }
                         x.Close();
                         return null;
                     }
-
                 }
-
             }
             catch (Exception e)
             {
@@ -90,6 +88,7 @@ namespace WCF_Server
             }
         }
 
+        //metodo che ritorna la lista di tutti i dipendenti
         public ListaDipendentiServer getListaDipendenti(MySqlConnection x)
         {
             try
@@ -98,7 +97,7 @@ namespace WCF_Server
                 x.Open();
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna tutti i dipendenti
                     command1.CommandText = "SELECT * " +
                     "FROM Dipendente ;";
 
@@ -107,14 +106,12 @@ namespace WCF_Server
                         while (reader.Read())
                         {
                             //legge i risultati ottenuti dalla query, in questo caso ritorna i dipendendti
-
                             var id = reader.GetInt32(0);
                             var nome = reader.GetString(1);
                             var cognome = reader.GetString(2);
                             var telefono = reader.GetString(3);
                             var psw = reader.GetString(4);
                             var amministrator = reader.GetInt32(5);
-
                             var ceo = false;
                             if (amministrator == 1)
                             {
@@ -123,7 +120,6 @@ namespace WCF_Server
 
                             DipendenteServer ps = new DipendenteServer(id, nome, cognome, telefono, psw, ceo);
                             lps.listaDipendServer.Add(ps);
-
                         }
                         x.Close();
                         return lps;
@@ -137,6 +133,7 @@ namespace WCF_Server
             }
         }
 
+        //metodo che ritorna la categoria che ha un certo ID passatogli come argomento
         public ListaProdottiServer getListaProdottiByCategory(MySqlConnection x, int idcat)
         {
             try
@@ -145,7 +142,7 @@ namespace WCF_Server
                 x.Open();
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna la categoria con quell'ID
                     command1.CommandText = "SELECT * "+
                                             "FROM prodotto "+
                                             "WHERE prodotto.IDCategoria = "+idcat+";";
@@ -155,7 +152,6 @@ namespace WCF_Server
                         while (reader.Read())
                         {
                             //legge i risultati ottenuti dalla query, in questo caso ritorna i prodotti che hanno una determinata categoria
-
                             var id = reader.GetInt32(0);
                             var nome = reader.GetString(1);
                             var idProduttore = reader.GetInt32(2);
@@ -166,12 +162,10 @@ namespace WCF_Server
 
                             ProdottoServer ps = new ProdottoServer(id, nome, idProduttore, prezzo, idCat, quantita, posizione);
                             lps.listaProducts.Add(ps);
-
                         }
                         x.Close();
                         return lps;
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -179,9 +173,9 @@ namespace WCF_Server
                 Console.WriteLine("ERRORE: " + e.ToString());
                 return null;
             }
-
         }
 
+        //metodo che ritorna tutta la lista dei prodotti del DB
         public ListaProdottiServer getListaProdotti(MySqlConnection x)
         {
             try
@@ -190,7 +184,7 @@ namespace WCF_Server
                 x.Open();              
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna tutti i prodotti del DB
                     command1.CommandText = "SELECT * " +
                     "FROM PRODOTTO ;";
 
@@ -199,7 +193,6 @@ namespace WCF_Server
                         while (reader.Read())
                         {
                             //legge i risultati ottenuti dalla query, in questo caso ritorna i prodotti
-                           
                             var id = reader.GetInt32(0);
                             var nome = reader.GetString(1);
                             var idProduttore = reader.GetInt32(2);
@@ -210,12 +203,10 @@ namespace WCF_Server
 
                             ProdottoServer ps = new ProdottoServer(id, nome, idProduttore,prezzo, idCat, quantita, posizione);
                             lps.listaProducts.Add(ps);
-
                         }
                         x.Close();
                         return lps;
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -225,7 +216,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che ritorna un prodotto che ha un certo ID passatogli come argomento
         public ProdottoServer getProdottoById(MySqlConnection x, int n)
         {
             try
@@ -233,7 +224,7 @@ namespace WCF_Server
                 x.Open();
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna il prodotto con quell'ID
                     command1.CommandText = "SELECT * " +
                     "FROM PRODOTTO " +
                     "WHERE PRODOTTO.IDPRODOTTO =" + n + ";";
@@ -256,7 +247,6 @@ namespace WCF_Server
                         }
                         x.Close();
                     }
-
                     x.Close();
                     return null;
                 }
@@ -268,7 +258,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che ritorna un dipendente che ha un certo ID passatogli come argomento
         public DipendenteServer getUtenteById(MySqlConnection x, int n)
         {
             try
@@ -276,7 +266,7 @@ namespace WCF_Server
                 x.Open();
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna il dipendente con quell'ID
                     command1.CommandText = "SELECT * " +
                     "FROM Dipendente " +
                     "WHERE Dipendente.IDDipendente =" + n + ";";
@@ -286,14 +276,12 @@ namespace WCF_Server
                         while (reader.Read())
                         {
                             //legge i risultati ottenuti dalla query, in questo caso ritorna l user cercato con id N
-
                             var id = reader.GetInt32(0);
                             var nome = reader.GetString(1);
                             var cognome = reader.GetString(2);
                             var telefono = reader.GetString(3);
                             var psw = reader.GetString(4);
                             var amministrator = reader.GetInt32(5);
-
                             var ceo = false;
                             if (amministrator == 1)
                             {
@@ -301,13 +289,10 @@ namespace WCF_Server
                             }
 
                             DipendenteServer ps = new DipendenteServer(id, nome, cognome, telefono, psw, ceo);
-
                             return ps;
                         }
                         x.Close();
-
                     }
-
                     x.Close();
                     return null;
                 }
@@ -319,6 +304,7 @@ namespace WCF_Server
             }
         }
 
+        //metodo che ritorna tutte le posizioni libere
         public List<String> getFreePosition(MySqlConnection x)
         {
             List<String> posti = new List<string>();
@@ -327,7 +313,7 @@ namespace WCF_Server
                 x.Open();
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
+                    //query che ritorna tutte le posizioni con disponibilità = 1 (cioè libere)
                     command1.CommandText = "SELECT * " +
                     "FROM POSIZIONE " +
                     "WHERE POSIZIONE.DISPONIBILE = 1;";
@@ -342,7 +328,6 @@ namespace WCF_Server
                         x.Close();
                         return posti;
                     }
-                   
                 }
             }
             catch (Exception e)
@@ -352,6 +337,7 @@ namespace WCF_Server
             }
         }
 
+        //metodo che modifica il prodotto, aggiorna i posti e crea l'operazione
         public bool ProductUpdate(MySqlConnection x,ProdottoServer p, int idDip, string desc, string date)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -394,10 +380,8 @@ namespace WCF_Server
                     transaction.Commit();
 
                     x.Close();
-
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -415,10 +399,10 @@ namespace WCF_Server
                     Console.WriteLine("  Message: {0}", ex2.Message);
                     return false;
                 }
-                
             }
         }
 
+        //metodo che crea un nuovo utente (passatogli come argomento)
         public bool CreaUtente(MySqlConnection x, DipendenteServer ds)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -437,6 +421,7 @@ namespace WCF_Server
                     // to Command object for a pending local transaction
                     command1.Connection = x;
                     command1.Transaction = transaction;
+                    //query che crea il nuovo dipendente
                     command1.CommandText = "INSERT INTO Dipendente(IDDipendente, Nome, Cognome, Telefono, Password, Amministratore)VALUES(null,'" + ds.nome + "', '" + ds.cognome + "', '" + ds.telefono + "','" + ds.password + "'," + ceo + ");";
                     command1.ExecuteNonQuery();
                     transaction.Commit();
@@ -444,7 +429,6 @@ namespace WCF_Server
                     x.Close();
                     return true;
                 }
-                
             }
             catch (Exception e)
             {
@@ -465,7 +449,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che elimina il dipendente passatogli come argomento e le sue operazioni eseguite
         public bool EliminaDipendente(MySqlConnection x, DipendenteServer ds)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -485,7 +469,7 @@ namespace WCF_Server
                     command1.CommandText = "DELETE operazione FROM operazione WHERE operazione.IDDipendente = " + ds.id + ";";
                     command1.ExecuteNonQuery();
 
-                    //elimino il prodotto tramite il suo id
+                    //elimino il dipendente tramite il suo id
                     command1.CommandText = "DELETE dipendente FROM dipendente WHERE dipendente.IDDipendente = " + ds.id + ";";
                     command1.ExecuteNonQuery();
 
@@ -494,7 +478,6 @@ namespace WCF_Server
                     x.Close();
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -515,14 +498,12 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che crea un prodotto (passatogli come parametro) e aggiorna i posti disponibili
         public bool CreaProdotto(MySqlConnection x, ProdottoServer ps)
         {
             //dichiariamo la transazione e la facciamo partire
-
             x.Open();
             var transaction = x.BeginTransaction();
-
 
             try
             {
@@ -533,8 +514,7 @@ namespace WCF_Server
                     command1.Connection = x;
                     command1.Transaction = transaction;
 
-
-
+                    //query che crea il prodotto
                     command1.CommandText = "INSERT INTO Prodotto(IDProdotto, Nome, IDProduttore, IDCategoria, PrezzoVendita, Quantita, IDPosizione)VALUES(null,'" + ps.nome + "', " + ps.produttore + ", " + ps.categoria + "," + ps.prezzo + "," + ps.quantita + ",'" + ps.posizione + "');";
                     command1.ExecuteNonQuery();
 
@@ -543,14 +523,11 @@ namespace WCF_Server
                                             "WHERE posizione.IDPosizione = '" + ps.posizione + "' ;";
                     command1.ExecuteNonQuery();
 
-
                     transaction.Commit();
-
 
                     x.Close();
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -571,7 +548,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che elimina il prodotto che gli viene passato come argomento, tutte le sue operazioni e aggiorna i posti
         public bool EliminaProdotto(MySqlConnection x, ProdottoServer ps)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -605,7 +582,6 @@ namespace WCF_Server
                     x.Close();
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -626,7 +602,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che ritorna la lista di nomi di tutte le categorie
         public List<String> getListaCategorie(MySqlConnection x)
         {
             try
@@ -651,7 +627,6 @@ namespace WCF_Server
                         x.Close();
                         return categorie;
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -661,7 +636,7 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo che ritorna la lista di nomi di tutti i produttori
         public List<String> getListaProduttori(MySqlConnection x)
         {
             try
@@ -680,13 +655,11 @@ namespace WCF_Server
                         {
                             //legge i risultati ottenuti dalla query, in questo caso ritorna i nomi dei produttori
                             var nome = reader.GetString(0);
-
                             produttori.Add(nome);
                         }
                         x.Close();
                         return produttori;
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -696,7 +669,8 @@ namespace WCF_Server
             }
         }
 
-
+        //metodo del CEO che modifica il prodotto, aggiorna i posti e crea l'operazione
+        //come il precedente, ma se volessimo fare qualche altra modifica per il ceo modificheremo solo questo
         public bool ProductUpdateCeo(MySqlConnection x, ProdottoServer p1, int idUser, string date, string desc)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -743,10 +717,8 @@ namespace WCF_Server
                     transaction.Commit();
 
                     x.Close();
-
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -764,10 +736,10 @@ namespace WCF_Server
                     Console.WriteLine("  Message: {0}", ex2.Message);
                     return false;
                 }
-
             }
         }
 
+        //metodo del CEO che modifica il dipendente
         public bool UserUpdateCeo(MySqlConnection x, DipendenteServer d1)
         {
             //dichiariamo la transazione e la facciamo partire
@@ -779,7 +751,6 @@ namespace WCF_Server
             {
                 using (MySqlCommand command1 = x.CreateCommand())
                 {
-
                     var ceo = 0;
                     if (d1.amministratore == true)
                     {
@@ -791,7 +762,7 @@ namespace WCF_Server
                     command1.Connection = x;
                     command1.Transaction = transaction;
 
-                    //aggiorniamo la posizione e la quantità
+                    //aggiorniamo i dati del dipendente
                     command1.CommandText = "UPDATE dipendente SET Nome=@Nome, Cognome=@Cognome, Telefono=@Telefono, Password=@Password, Amministratore=@Amministratore WHERE IDDipendente=@IDDipendente;";
                     command1.Parameters.AddWithValue("@Nome", d1.nome);
                     command1.Parameters.AddWithValue("@Cognome", d1.cognome);
@@ -804,10 +775,8 @@ namespace WCF_Server
                     transaction.Commit();
 
                     x.Close();
-
                     return true;
                 }
-
             }
             catch (Exception e)
             {
@@ -825,7 +794,6 @@ namespace WCF_Server
                     Console.WriteLine("  Message: {0}", ex2.Message);
                     return false;
                 }
-
             }
         }
 
@@ -857,7 +825,6 @@ namespace WCF_Server
                         x.Close();
                         return prodotti;
                     }
-                    
                 }
             }
             catch (Exception e)
@@ -897,7 +864,6 @@ namespace WCF_Server
                         x.Close();
                         return operazioni;
                     }
-                   
                 }
             }
             catch (Exception e)

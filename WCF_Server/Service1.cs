@@ -64,7 +64,7 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //ritorna la lista di prodotti
+                //ritorna il prodotto cercato
                 ps = databse1.getProdottoById(x, n);
                 return ps;
             }
@@ -103,7 +103,7 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //ritorna la lista di prodotti
+                //ritorna la lista di posti disponibili
                 postiDisponibili = databse1.getFreePosition(x);
                 return postiDisponibili;
             }
@@ -143,7 +143,7 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //ritorna la lista di prodotti
+                //ritorna true se crea correttamente il dipendente
                 if (databse1.CreaUtente(x,ds))
                 {
                     return true;
@@ -165,14 +165,13 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //eliminiamo il prodotto
+                //ritorna true se eliminiamo il dipendente correttamente
                 if (databse1.EliminaDipendente(x, ds))
                 {
                     return true;
                 }
                 else
                     return false;
-
             }
             catch (Exception e)
             {
@@ -229,7 +228,7 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //crea il prodotto
+                //ritorna true se crea il prodotto correttamente
                 if (databse1.CreaProdotto(x, ps))
                 {
                     return true;
@@ -337,7 +336,7 @@ namespace WCF_Server
                 //ci connettiamo al DB
                 var x = databse1.getsqlconnect(databse1.connectstring());
 
-                //ritorna true se le modifiche sono state eseguite correttamente
+                //ritorna la lista di nomi dei prodotti in esaurimento
                 return databse1.getProductInExhaustion(x);
             }
             catch (Exception e)
